@@ -21,11 +21,12 @@ window.onscroll = () => {
         let id = sec.getAttribute('id');
 
         if(top >= offset && top < offset + height) {
-            navLinks.forEach.apply(links => {
-                links.classList.remove('active');
-                document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                
 
             });
+            document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
         };
     });
 
@@ -58,8 +59,44 @@ ScrollReveal().reveal('.home-contact p, .about-content', {origin: 'right' });
 const typed = new Typed('.multiple-text', {
     strings: ['Frontend Developer!', 'Web Designer!', 'Robotics/Programming Instructor!', 'Blockchain Enthusiast!', "Software Developer!"],
     typeSpeed: 70,
-    backspeed: 70,
+    backSpeed: 70,
     backDelay: 1000,
     loop: true
 });
 
+// CONTACT FORM (Formspree)
+(function(){
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+    if (!contactForm) return;
+  
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (formStatus) {
+        formStatus.textContent = 'Sending...';
+        formStatus.className = 'form-status';
+      }
+      try {
+        const data = new FormData(contactForm);
+        const res = await fetch(contactForm.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          if (formStatus) { formStatus.textContent = 'Thanks! Your message has been sent.'; formStatus.classList.add('success'); }
+          contactForm.reset();
+        } else {
+          let errMsg = 'Oops, something went wrong. Please try again.';
+          try {
+            const json = await res.json();
+            if (json && json.errors && json.errors[0] && json.errors[0].message) errMsg = json.errors[0].message;
+          } catch {}
+          if (formStatus) { formStatus.textContent = errMsg; formStatus.classList.add('error'); }
+        }
+      } catch (err) {
+        if (formStatus) { formStatus.textContent = 'Network error. Please try again.'; formStatus.classList.add('error'); }
+      }
+    });
+  })();
+  

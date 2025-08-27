@@ -158,21 +158,32 @@
 
             <section class="contact" id="contact">
                 <h2 class="heading">Contact <span>Me</span></h2>
-
-                <form action="#">
-                    <div class="input-box">
-                        <input type="text" placeholder="Full Name">
-                        <input type="email" placeholder="Email Address">
-                    </div>
-
-                    <div class="input-box">
-                        <input type="number" placeholder="Mobile Number">
-                        <input type="text" placeholder="Email Subject">
-                    </div>
-                    <textarea name="" id="" cols="30" rows="10" placeholder="Your Message"></textarea>
-                    <input type="submit" value="Send Message" class="btn">
+              
+                <form id="contact-form" action="https://formspree.io/f/mgvlvono" method="POST" novalidate>
+                  <div class="input-box">
+                    <input type="text" name="name" placeholder="Full Name" required>
+                    <input type="email" name="email" placeholder="Email Address" required>
+                  </div>
+              
+                  <div class="input-box">
+                    <input type="tel" name="phone" placeholder="Mobile Number">
+                    <input type="text" name="subject" placeholder="Email Subject">
+                  </div>
+              
+                  <textarea name="message" rows="10" placeholder="Your Message" required></textarea>
+              
+                  <!-- Honeypot anti-spam -->
+                  <input type="text" name="_gotcha" style="display:none">
+              
+                  <!-- Optional metadata -->
+                  <input type="hidden" name="_subject" value="Portfolio Contact">
+                  <input type="hidden" name="_template" value="table">
+              
+                  <button type="submit" class="btn">Send Message</button>
+                  <p id="form-status" class="form-status" aria-live="polite"></p>
                 </form>
-            </section>
+              </section>
+              
         </main>
 
         <footer class ="footer">

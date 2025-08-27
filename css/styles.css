@@ -511,3 +511,13 @@ span {
         width: 100%;
     }
 }
+
+/* Contact form status styles */
+.form-status {
+    margin-top: 1rem;
+    font-size: 1.4rem;
+    opacity: 0.95;
+  }
+  .form-status.success { color: #4ade80; }  /* green */
+  .form-status.error   { color: #f87171; }  /* red */
+  
